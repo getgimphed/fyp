@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
     'material',
     'material.frontend',
-    
+
     'rest_framework',
     'debug_toolbar',
     'microbank',
@@ -95,7 +95,6 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

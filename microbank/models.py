@@ -4,9 +4,14 @@ from django.db import models
 class Client(models.Model):
     id              = models.AutoField(db_column='id',primary_key=True)
     name            = models.CharField(max_length=30)
-    address 		= models.CharField(max_length=255)
-    mobile          = models.BigIntegerField()
-    loanTaken       = models.BinaryField()
+    # address 		= models.CharField(max_length=255)
+    address 		= models.TextField()
+    mobile          = models.BigIntegerField(unique=True)
+    loanTaken       = models.IntegerField()
+    loanId          = models.ForeignKey('Loan',to_field='id',null=True)
+
+    def __str__(self):
+        return self.name
 
 class ClientGroup(models.Model):
     id              = models.AutoField(db_column='id',primary_key=True)
@@ -19,7 +24,7 @@ class LoanFor(models.Model):
 
 class Loan(models.Model):
     id              = models.AutoField(db_column='id',primary_key=True)
-    groupOrSingle   = models.BinaryField() # 0 means single user and 1 means group
+    groupOrSingle   = models.IntegerField() # 0 means single user and 1 means group
     groupId         = models.ForeignKey('ClientGroup',null=True)
     clientId        = models.ForeignKey('Client',null=True)
     amount 		    = models.IntegerField()
