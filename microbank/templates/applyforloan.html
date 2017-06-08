@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load material_form %}
+
+{% block content %}
+  <h2>Appply for loan</h2>
+
+  <form method="post" class="viewform" class="row">
+    {% csrf_token %}
+    {% if args is not null %}
+      <p>Error</p>
+    {% endif %}
+    {% for field in form %}
+      <p class="col-md-5">
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button type="submit" name="_submit" class="btn btn-primary btn-lg">Submit</button>
+  </form>
+{% endblock %}

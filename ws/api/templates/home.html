@@ -1,0 +1,86 @@
+{% extends 'vbase.html' %}
+{% block content %}
+   {% if user and not user.is_anonymous %}
+   <div class="container">
+   <section class="ws_second_section pull-right">
+    <div class="col-md-12 col-xs-12 ws-padding-section-where">
+        <u><h4 class="text-center marginbtm3p">Where We Here</h4></u>
+        <figure class="Bengaluru">
+            <img src="https://d2ogitr3jia7eu.cloudfront.net/assets/media/mis/bengaluru.png" alt="Bikes in Bangalore" width="225" height="225px" />
+            <figcaption><div>Bengaluru</div></figcation>
+        </figure>
+
+        <figure class="Delhi">
+            <img src="https://d2ogitr3jia7eu.cloudfront.net/assets/media/mis/delhi.png" alt="Bikes in Delhi" width="225" height="225" />
+            <figcaption><div>Delhi</div></figcation>
+        </figure>
+
+
+        <figure class="Leh">
+            <img src="https://d2ogitr3jia7eu.cloudfront.net/assets/media/mis/leh.png" alt="Bikes in Leh" width="225" height="225" />
+            <figcaption><div>Leh-Ladakh</div></figcation>
+        </figure>
+
+
+        <figure class="Gurgaon">
+            <img src="https://d2ogitr3jia7eu.cloudfront.net/assets/media/mis/gurgaon.png" alt="Bikes in Gurgaon" width="225" height="225" />
+            <figcaption><div>Gurgaon</div></figcation>
+        </figure>
+    </div>
+    </section>
+    <h5 class="text-center marginbtm3p">Wheelstreet Providing You the Best Business.</h5>
+    </div>
+   {% else %}
+   <div class="row">
+    <div class="container">
+    <div class="row">
+    <div class="header">
+    
+        <h3 class="text-muted">Login</h3>
+      </div></div>
+       <div class="row" >
+        <form class="form" role="form" name="LoginForm" action="{% url 'login_view' %}" method="post">
+        <input type="hidden" name="next" value="{{ next }}" />
+        <!-- {% if next %}
+            <input type="hidden" name="next" value="{{ next }}" />
+        {% endif %} -->
+        <div class ="row">
+        <input type="hidden" name="next" value="{{ next }}" />
+        {% if message %}
+        <div class="alert alert-danger">
+        {{ message }}
+        </div>
+        {% endif %}
+        <div class="form-group col-xs-7">
+            <label class="control-label col-xs-4" for="mobile_number">Mobile</label>
+            <div class="controls col-xs-6">
+                <input type="text" id="username" name="mobile_number"  placeholder="Mobile">
+            </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="form-group col-xs-7">
+            <label class="control-label col-xs-4" for="password">Password</label>
+            <div class="controls col-xs-6" >
+                <input type="password" name="password" id="password" placeholder="Password">
+            </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="form-group col-xs-7">
+            <div class="controls col-xs-8">
+                <button type="submit" class="btn btn-primary">Sign in</button>&nbsp;&nbsp;<h5><small>Not registered ? <a href="{% url 'addvendor' %}">Create an account</a></small></h5>
+            </div>        
+        </div>
+        </div>
+        </form>
+    </div> 
+    <div class="row" >
+       <span>
+     </div>
+     </div>
+   {% endif %}
+
+    </div>
+ </div>
+{% endblock %}

@@ -15,6 +15,8 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+import django.contrib.auth
+django.contrib.auth.LOGIN_URL = '/login'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -24,6 +26,8 @@ SECRET_KEY = '6isimk4eg(xz)i1%^k8^l=ypchm_#$0e$l#t(dtiosx7f8x_9x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+LOGIN_REDIRECT_URL = 'home'
 
 ALLOWED_HOSTS = [
 
@@ -77,6 +81,13 @@ TEMPLATES = [
         },
     },
 ]
+
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+      os.path.join(os.path.dirname(__file__), 'templates'),
+)
 
 WSGI_APPLICATION = 'fyp.wsgi.application'
 

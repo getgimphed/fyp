@@ -1,0 +1,44 @@
+{% extends 'vbase.html' %}
+{% block content %}
+<div class="container">
+        <div><a class="btn btn-primary" href="{%url 'addvendorlocation' %}">
+                        <i class="fa fa-map-marker"></i> Add Location
+                    </a></div>
+        {% if vendors_locations %}
+        <div class="row">
+        <table class="table">
+            <thead>
+             <tr>
+                <th>Location</th>
+                <th>Fos</th>
+                <th>Total Bikes</th>
+                <th>Edit/Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for loc in vendors_locations %}
+            <tr>
+                <td><a href="{%url 'vendorslocations-detail' loc.id %}">{{loc.location.location_name}}&nbsp;&nbsp;{{ loc.address }}</a></td>
+                <td>{{ loc.fos.first_name }}&nbsp;{{ loc.fos.last_name }}</td>
+                <td>{{ loc.bikes_count }}</td>
+                <td>
+                    <form method="GET"
+                       action="{%url 'addvendorlocation'  %}" >
+                       <input type="hidden" value="{{ loc.id }}" name="location">
+                        <button class="btn btn-default btn-sm pull-left" type="submit"><i class="fa fa-pencil"></i> Edit</button>
+                    </form> &nbsp;
+                    &nbsp;
+                    <!-- <form method="POST" action="{% url 'vendorslocations-detail' loc.id %}" ><input type="hidden" value="DELETE" name="method"><button class="btn btn-warning btn-sm" type="submit"><i class="fa fa-times"></i> Delete</button></form> --></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        </div>
+        {% else %}<br>
+                <h6 class="text-primary marginbtm3p">Wheelstreet Providing You the Best Business. Start operating Noww.</h6>
+                <h6 class='text-primary marginbtm3p'>You don't have any location added. Contact customer care for operating with Wheelstreet. 9999999999</h6>  
+        {% endif %}
+      
+    </div>
+{% endblock %}

@@ -1,0 +1,230 @@
+{% extends 'vbase.html' %}
+{% block content %}
+<div class="container">
+	{% if user and not user.is_anonymous %}
+	{% else %}
+  <div class="panel-heading">New Vendor Registration</div>
+  <div class="panel-body"><br/>
+    <form class="form-horizontal" action="{% url 'vendor-register' %}" method ="POST"  role="form" name="vendorform" onsubmit="return validateform()">
+            {% if message %}
+            {{ message }}
+            {% endif %}
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="bike-model">{{ customer_form.mobile_number.label_tag }}</label>
+                <div class="col-sm-10">
+                {{ customer_form.mobile_number.errors }}
+                {{ customer_form.mobile_number }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="bike-model">{{ customer_form.password.label_tag }}</label>
+                <div class="col-sm-10">
+                {{ customer_form.password.errors }}
+                {{ customer_form.password }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="bike-model">{{ customer_form.confirm_password.label_tag }}</label>
+                <div class="col-sm-10">
+                {{ customer_form.confirm_password.errors }}
+                {{ customer_form.confirm_password }}
+                </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="bike-deposit">{{ vendor_form.username.label_tag }}</label>
+             <div class="col-sm-10"> 
+             {{ vendor_form.username.errors }}
+              {{ vendor_form.username }}
+             </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="bike-deposit">{{ vendor_form.company.label_tag }}</label>
+             <div class="col-sm-10"> 
+              {{ vendor_form.company.errors }}
+              {{ vendor_form.company }}
+             </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="bike-deposit">{{ vendor_form.company_register_address.label_tag }}</label>
+             <div class="col-sm-10"> 
+              {{ vendor_form.company_register_address.errors }}
+              {{ vendor_form.company_register_address }}
+             </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="bike-deposit">{{ vendor_form.company_corporate_address.label_tag }}</label>
+             <div class="col-sm-10"> 
+              {{ vendor_form.company_corporate_address.errors }}
+              {{ vendor_form.company_corporate_address }}
+             </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="bike-deposit">{{ vendor_form.bank_name.label_tag }}</label>
+             <div class="col-sm-10"> 
+              {{ vendor_form.bank_name.errors }}
+              {{ vendor_form.bank_name }}
+             </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="bike-deposit">{{ vendor_form.bank_account_number.label_tag }}</label>
+             <div class="col-sm-10"> 
+              {{ vendor_form.bank_account_number.errors }}
+              {{ vendor_form.bank_account_number }}
+             </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="bike-deposit">{{ vendor_form.bank_ifsc_code.label_tag }}</label>
+             <div class="col-sm-10"> 
+              {{ vendor_form.bank_ifsc_code.errors }}
+              {{ vendor_form.bank_ifsc_code }}
+             </div>
+            </div>
+
+            <div class="form-group"> 
+                  <div class="col-sm-offset-2 col-sm-10">
+               <button type="submit" class="btn btn-default">Register</button>
+             </div>
+            </div>
+            </form>
+</div>
+
+    {% endif %}
+</div>
+<script>
+            document.getElementById('id_mobile_number').addEventListener("blur", mmyFunction);
+              function mmyFunction() {
+              var form = document.forms['vendorform'];
+              mobile_number =form['mobile_number'].value;
+              if ( mobile_number =="" || mobile_number == null){
+              toastr.warning('Please provide mobile number');
+                return false;
+              } 
+              checkavaliable({"type":"mobile","data":mobile_number},function(){
+                if (this=="false") {
+                    toastr.error('Mobile already registered.');
+                    window.suc_m = false;
+                  }
+                  else{
+                    window.suc_m = true;
+                  }
+
+                });
+              };
+              document.getElementById('id_username').addEventListener("blur", umyFunction);
+              function umyFunction() {
+              var form = document.forms['vendorform'];
+              username = form['username'].value;
+              checkavaliable({"type":"username","data":username},function(){
+                if(username.length<3){
+                  toastr.warning('Username should be atleast <br>3 alphabets long.');  
+                  window.suc_u = false;
+                }
+                else if (this == "true") {
+                  toastr.success('Username avaliable');
+                  window.suc_u = true;
+                }
+             else{
+                toastr.error('Username not avaliable.');
+                window.suc_u = false;
+             }
+              });
+              };
+
+            function checker(json_data,callback){
+            var xmlhttp = new XMLHttpRequest();
+            var url     = "/api/vendor/register/";
+            xmlhttp.onreadystatechange = function() {
+              if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                  // var myArr = JSON.parse(xmlhttp.responseText);
+                  // myFunction(myArr)
+                var data = JSON.parse(xmlhttp.responseText);
+                callback.apply(data);
+              }
+            };
+            xmlhttp.open("POST", url, true);
+            var params = "type="+json_data["type"]+"&data="+json_data["data"];
+            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlhttp.send(params);
+
+            };
+            // Function to check avaliablity of username and password
+            function checkavaliable(json_data,callback){
+            var xmlhttp = new XMLHttpRequest();
+            var url     = "/api/avaliablity/";
+            xmlhttp.onreadystatechange = function() {
+              if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                  // var myArr = JSON.parse(xmlhttp.responseText);
+                  // myFunction(myArr)
+                var data = JSON.parse(xmlhttp.responseText);
+                callback.apply(data['avaliable']);
+              }
+            };
+            xmlhttp.open("POST", url, true);
+            var params = "type="+json_data["type"]+"&data="+json_data["data"];
+            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlhttp.send(params);
+
+            };
+            
+          function validateform(){
+              var form = document.forms['vendorform'];
+              mobile_number =form['mobile_number'].value;
+              password = form['password'].value;
+              confirm_password = form['confirm_password'].value;
+              username = form['username'].value;
+              company  = form["company"].value; 
+              company_register_address = form["company_register_address"].value;
+              company_corporate_address  = form["company_corporate_address"].value; 
+              bank_name  = form["bank_name"].value; 
+              bank_account_number  = form["bank_account_number"].value; 
+              bank_ifsc_code  = form["bank_ifsc_code"].value; 
+              var suc_m = false;
+              var suc_u = false;
+             if ( mobile_number =="" || mobile_number == null){
+              toastr.warning('Please provide mobile number');
+                return false;
+              }
+              if ( password == null || password=="" || password.length<8)
+              {
+                toastr.info('create password ! <br> Password length should be <br> atleast 8 characters');
+                return false;
+              }
+              if( confirm_password != password ){
+                toastr.warning('Password doesn\'t match');
+                return false;
+              }
+              if(company == "" || company == null){
+                toastr.warning("Provide company name.");
+                return false;
+              }
+              if(company_register_address == "" || company_register_address == null){
+                toastr.warning("Provide company register address name.");
+                return false;
+              }
+              if(company_corporate_address == "" || company_corporate_address == null){
+                toastr.warning("Provide company corporate address name.");
+                return false;
+              }
+              if(bank_name == "" || bank_name == null){
+                toastr.warning("Provide bank name name.");
+                return false;
+              }
+              if(bank_account_number == "" || bank_account_number == null){
+                toastr.warning("Provide bank account number name.");
+                return false;
+              }
+              if(bank_ifsc_code == "" || bank_ifsc_code == null){
+                toastr.warning("Provide bank ifsc code name.");
+                return false;
+              }
+              if(window.suc_u ==  null|| window.suc_u == false || window.suc_m == null || window.suc_m ==false){
+                return false;
+              }
+              window.suc_u = null;
+              window.suc_m = null;
+              return true;
+              };
+          </script>
+
+{% endblock %}

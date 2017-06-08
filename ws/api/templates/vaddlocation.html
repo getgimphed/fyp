@@ -1,0 +1,205 @@
+{% extends 'vbase.html' %}
+<!-- {% load  staticfiles %} -->
+<!--  load material_form  -->
+{% block content %}
+<div class="container">
+{% if edit %}
+
+<div class="panel-heading">Edit Location</div>
+
+  <div class="panel-body"><br/>
+    
+    <form class="form-horizontal" id="locationform" action="{% url 'vendorslocations-list' %}" method ="POST"  role="form"     
+    <input type='hidden' name='edit' value="True">
+      {% else %}
+    <div class="panel-heading">Add New Location</div>
+    <div class="panel-body"><br/>
+    
+    <form class="form-horizontal" id="locationform" action="{% url 'vendorslocations-list' %}" method ="POST"  role="form"    >
+      {% endif %}         
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="bike-model">{{ form.location.label_tag }}</label>
+                <div class="col-sm-10">
+                {{ form.location }}
+                </div>
+            </div>
+            <div class="form-group"> 
+                  <label class="control-label col-sm-2 " for="bike-rent">{{ form.address.label_tag }}</label>
+
+            <div class="col-sm-10">
+                <span></span>
+          <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCKRkH2qjwl1VrcLWSdWoWies505e_wELs"></script>
+                      <script type="text/javascript">
+                          google.maps.event.addDomListener(window, 'load', function () {
+                              var places = new google.maps.places.Autocomplete(document.getElementById('store_location'));
+                              google.maps.event.addListener(places, 'place_changed', function () {
+                                  var place = places.getPlace();
+                                  var address = place.formatted_address;
+                                  var latitude = place.geometry.location.lat();
+                                  var longitude = place.geometry.location.lng();
+                                  var mesg = "Address: " + address;
+                                  mesg += "\nLatitude: " + latitude;
+                                  mesg += "\nLongitude: " + longitude;
+                                  alert(mesg);
+                              });
+                          });
+                      </script>
+            <input type="text" id="store_location"  name="address" placeholder="Enter a location" />
+            </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="bike-deposit">{{ form.latitude.label_tag }}</label>
+             <div class="col-sm-10"> 
+              {{ form.latitude }}
+             </div>
+            </div>
+            <div class="form-group"> 
+                   <label class="control-label col-sm-2 " for="bike-rent">{{ form.longitude.label_tag }}</label>
+                <div class="col-sm-10"> 
+                   {{ form.longitude }}
+                  </div>
+            </div>
+
+            
+
+            <div class="form-group"> 
+                   <label class="control-label col-sm-2 " for="bike-rent">{{ form.store_open_time.label_tag }}</label>
+
+                <div class="col-sm-10"> 
+                        {{ form.store_open_time }}
+                  </div>
+            </div>
+            <div class="form-group"> 
+                   <label class="control-label col-sm-2 " for="bike-rent">{{ form.store_close_time.label_tag }}</label>
+
+                <div class="col-sm-10"> 
+                   {{ form.store_close_time }}
+                  </div>
+            </div>
+
+            <div class="form-group"> 
+                   <label class="control-label col-sm-2 " for="bike-rent">{{ form.fos.label_tag }}</label>
+
+                <div class="col-sm-10"> 
+                   {{ form.fos }}
+                  </div>
+            </div>
+            <div class="form-group"> 
+                  <div class="col-sm-offset-2 col-sm-10">
+               <input type="submit"  id="submitt" class="btn btn-default" ></input>
+             </div>
+            </div>
+            </form>
+</div>
+</div>
+
+        <!--validation-->
+        
+           <!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCtK7kFmyqDh5yX9jAUNHCHYTVe8RxRdo8"></script>
+    <script type="text/javascript">
+        google.maps.event.addDomListener(document, 'load', function () {
+                    var places = new google.maps.places.Autocomplete(document.getElementById('txtPlaces'));
+                    console.log("map loaded");
+                    google.maps.event.addListener(places, 'place_changed', function () {
+                    var place = places.getPlace();
+                    console.log(place.geometry);
+                    var address = place.formatted_address;
+                    console.log(address);
+                    var latitude = place.geometry.location.lat();
+                    var longitude = place.geometry.location.lng();
+                    // alert('done');
+                    document.getElementById('latitude').value = latitude;
+                    document.getElementById('longitude').value = longitude;
+                    return false;
+                      });
+                  });
+        </script> -->
+        
+        <script type="text/javascript">
+              var form=document.getElementById("locationform");
+              form.onsubmit = function (){
+              address   = form['address'].value;
+              longitude = form['longitude'].value;
+              latitude  = form['latitude'].value;
+              fos       = form['fos_id'].value;
+              store_open_time = form['store_open_time'].value;
+              store_close_time = form['store_close_time'].value;
+              //Why the fuck below line makes form refresh i can't figure out;
+              // location         = form['location_id'].value;
+              // if ( location == null || location == "" )
+              // {
+              //   toastr.warning('Location not provided');
+              //   console.log("falsesfgs");
+              //   return false;
+              // }
+              if ( longitude == null || longitude == "")
+              {
+
+                toastr.warning('longitude not provided');
+                console.log("falseasdf");
+                return false;
+              }
+              console.log("working");
+              if ( latitude == null || latitude=="")
+              {
+                console.log("false");
+                toastr.warning('latitude not provided');
+                return false;
+              }
+              if ( fos == null || fos=="")
+              {
+                console.log("false");
+                toastr.info('latitude not provided');
+                return false;
+              }
+              console.log("workingg");
+              if ( address == null || address=="")
+              {
+                console.log("false");
+                toastr.info('address not provided');
+                return false;
+              }
+              if( !datetimevalid(store_open_time)){
+                toastr.warning('Store open time format not correct. Use HH:MM:SS format');
+                return false;
+              }
+              console.log("workinggg");
+              if( !datetimevalid(store_close_time)){
+                toastr.warning('Store close time format not correct. Use HH:MM:SS format');
+                return false;
+              }
+              if(store_open_time >store_close_time){
+                toastr.warning('Store closing time should be after service open time');
+                return false;
+              }
+              toastr.success('Location added successfully.', 'Success', {timeOut: 6000});
+              setInterval(function(){return true;},3000);
+              };
+
+              function startTimer () {
+               timer.start();
+                setTimeout(stopTimer,3000);
+              };
+
+              function stopTimer () {
+               timer.stop();
+              };
+              function yearvalid(year){
+              if(year==""|| year== null);
+              if (year.match(/^20[0-9]{2}$/)) {
+                return true;
+              }
+                return false;
+              };
+              function datetimevalid(date){
+              console.log(date)
+              if (date.match(/^([01]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/)){
+                return true;
+              }
+              else{
+                  return false;
+               }
+              };
+              </script>
+          <!--validation-end-->
+{% endblock %}

@@ -1,17 +1,19 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Client(models.Model):
+    user            = models.ForeignKey(User)
     id              = models.AutoField(db_column='id',primary_key=True)
-    name            = models.CharField(max_length=30)
-    # address 		= models.CharField(max_length=255)
+    # name            = models.CharField(max_length=30)
     address 		= models.TextField()
-    mobile          = models.BigIntegerField(unique=True)
+    mobile          = models.CharField(unique=True,max_length=11)
     loanTaken       = models.IntegerField()
-    loanId          = models.ForeignKey('Loan',to_field='id',null=True)
+    # loanId          = models.ForeignKey('Loan',to_field='id',null=True)
+    singleOrGroup   = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return str(self.user.id)
 
 class ClientGroup(models.Model):
     id              = models.AutoField(db_column='id',primary_key=True)

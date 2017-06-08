@@ -1,0 +1,2 @@
+web: python manage.py collectstatic --noinput; gunicorn website.wsgi  
+heroku ps:scale web=1

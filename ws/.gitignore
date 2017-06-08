@@ -1,0 +1,14 @@
+website/api/migrations/
+api/auto.py
+api/filler.py
+api/fillerbymodel.py
+api/modelstructure.py
+website/settings.py
+.swp
+website/__pycache__/
+api/__pycache__/
+api/algo.py
+api/migrations/__pycache__/
+website/__pycache__/
+*.pyc
+.pyc

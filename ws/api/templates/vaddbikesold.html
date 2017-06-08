@@ -1,0 +1,50 @@
+{% extends 'vbase.html' %}
+{% block content %}
+      <script type="text/javascript">
+      window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
+      </script>
+      <!--validation-->
+        <script type="text/javascript">
+            function validateform(){
+              var form = document.forms['soldform'];
+              ven_loc_bikes =form['ven_loc_bikes'].value;
+              reason = form['reason'].value;
+              if ( ven_loc_bikes == null || ven_loc_bikes =="")
+              {
+                toastr.warning('No bike selected');
+                return false;
+              }
+              if( reason =="" || reason ==null ){
+                toastr.warning('Please provide reason for selling the bike.');
+                return false;
+              }
+              return true;
+              
+            }
+          </script>
+          <!--validation-end-->
+<div class="container">
+<div class = "row"><h3>Bike Sold Form</h3></div>  
+        <form class="form-horizontal" name="soldform" action="{% url 'vendorslocationsbikessold-list' %}" method ="POST"  role="form" onsubmit="return validateform()">
+            {% csrf_token %}
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="accessories-id">{{ form.ven_loc_bikes.label_tag }}</label>
+             <div class="col-sm-10  "> 
+              {{ form.ven_loc_bikes }}
+             </div>
+            </div>
+            <div class="form-group"> 
+                   <label class="control-label col-sm-2 " for="accessories-rent">{{ form.reason.label_tag }}</label>
+
+                <div class="col-sm-10"> 
+                   {{ form.reason }}
+                  </div>
+            </div>
+            <div class="form-group"> 
+                  <div class="col-sm-offset-2 col-sm-10">
+               <button type="submit" class="btn btn-default">Submit</button>
+             </div>
+            </div>
+            </form>
+</div>
+{% endblock %}

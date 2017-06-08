@@ -1,0 +1,523 @@
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+.main{
+	margin-top: 3%;
+}
+.login{
+	width: 30%;
+	border: 1px solid #aaf;
+}
+.from-to{
+	display:inline-block;
+	margin:0px 15px;
+}
+.payment{
+  margin:0px;
+  padding:0px;
+  font-weight: 700;
+  font-size: 18px;
+}
+.payment-attributes{
+  display: inline-block;
+  width: 100%;
+  margin-right: 10px;
+}
+.payment-values{
+font-weight: 100;
+  margin-left: 10px;
+  background: #f8f8f8;
+  padding: 0px 10px;
+}
+.number-of-days,{
+
+}
+.price-per-bike{
+
+}
+.total-price{
+
+}
+.each-booking{
+  min-height: 190px;
+  background: #f8f8f8;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin: 5px;
+}
+.highlight{
+  font-weight: 600;
+  font-style: italic;
+  font-family: 'Roboto',sans-serif;
+}
+.fleet{
+    margin: 5px 0px;
+    padding: 0px;
+}
+.fleet-collapse-a{
+  background-color:#1DC8E7;
+  display: inline-block;
+  width: 100%;
+  padding: 10px;
+  color:#120808;
+}
+
+.fleet-top-detail{
+  display: inline-block;
+  
+}
+
+.fleet-bike-name{
+  width: 20%;
+}
+
+.fleet-well{
+  background-color: #f8f8f8;
+  padding: 10px;
+}
+
+.each-fleet-inside{
+  margin-bottom:5px;
+  border-bottom: 1px solid #aaa;
+  padding-bottom: 5px;
+}
+
+.fleet-inside-detail{
+  display: inline-block;
+  margin-right: 10px;
+  width: 50px;
+}
+
+.fleet-sno{
+  width:30px;
+}
+
+
+.fleet-regno{
+  width: 110px;
+}
+
+.fleet-actions{
+  width: 50%;
+}
+
+.bike-details-modal{
+  width:90%;
+}
+
+.thumb{
+  padding:1px;
+
+}
+
+.order-id{
+  margin-bottom: 15px;
+}
+.summary ul{
+  list-style: none;
+  padding: 20px 0px;
+  background-color: #f8f8f8;
+  margin-right: 10px;
+}
+.summary ul li{
+
+}
+.summary-label{
+  font-weight: 100;
+  color: #8f8f8f;
+  text-align: right;
+}
+.user-name-highlight{
+  font-size: 24px;
+  color: #8f8f8f;
+}
+
+.booking-summary{
+
+}
+.user-summary{
+
+}
+.user-summary-ul{
+  padding:13px 20px !important;
+}
+.payment-summary{
+
+}
+.actions-summary{
+
+}
+
+.feed-heading{
+  text-transform: uppercase;
+  background-color: #09091A;
+}
+.feed-heading th{
+  color:#fff;
+  text-align: center;
+}
+.feed-label{
+  background-color: #1DC8E7;;
+  color: #120808;
+  font-weight: 100;
+}
+.feed-money{
+  background-color:#B0B5BA;;
+}
+.feed-table{
+    border: 1px solid #09091A !important;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+  background-color: #fff;
+  opacity: 1;
+}
+.booking-h3{
+  text-align: center;
+  margin-top:10px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 2px;
+}
+
+/* FILTERABLE TABLE CSS*/
+.filterable {
+    margin-top: 15px;
+}
+.filterable .panel-heading .pull-right {
+    margin-top: -20px;
+}
+.filterable .filters input[disabled] {
+    background-color: transparent;
+    border: none;
+    cursor: auto;
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+}
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+    color: #333;
+}
+.filterable .filters input[disabled]::-moz-placeholder {
+    color: #333;
+}
+.filterable .filters input[disabled]:-ms-input-placeholder {
+    color: #333;
+}
+
+/*.img-wrap .close {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 100;
+}
+*/
+
+/*
+IMAGE UPLOAD CSS STARTS
+ */
+.file-input {
+    overflow-x: auto;
+}
+
+.file-loading {
+    top: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    font-size: 999px;
+    text-align: right;
+    color: #fff;
+    background: transparent url('../img/loading.gif') top left no-repeat;
+    border: none;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    text-align: right;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    background: none repeat scroll 0 0 transparent;
+    cursor: inherit;
+    display: block;
+}
+
+.file-caption .glyphicon {
+    display: inline-block;
+    min-width: 18px;
+    margin-top: 2px;
+}
+
+.file-caption-name {
+    display: inline-block;
+    overflow: hidden;
+    max-height: 20px;
+    padding-right: 10px;
+    word-break: break-all;
+}
+
+.file-caption-ellipsis {
+    position: absolute;
+    right: 10px;
+    margin-top: -6px;
+    font-size: 1.2em;
+    display: none;
+    font-weight: bold;
+    cursor: default;
+}
+
+.kv-has-ellipsis .file-caption-ellipsis {
+    display: inline;
+}
+
+.kv-has-ellipsis {
+    padding-right: 17px;
+}
+
+.kv-search-container .kv-search-clear {
+    position: absolute;
+    padding: 10px;
+    right: 0px;
+}
+
+.file-error-message {
+    background-color: #f2dede;
+    color: #a94442;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.file-error-message pre, .file-error-message ul {
+    margin: 5px 0;
+    text-align: left;
+}
+
+.file-caption-disabled {
+    background-color: #EEEEEE;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+.file-input .btn[disabled], .file-input .btn .disabled {
+    cursor: not-allowed;
+}
+
+.file-preview {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 5px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.file-preview-frame {
+    display: table;
+    margin: 8px;
+    height: 160px;
+    border: 1px solid #ddd;
+    box-shadow: 1px 1px 5px 0px #a2958a;
+    padding: 6px;
+    float: left;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.file-preview-frame:hover {
+    box-shadow: 3px 3px 5px 0px #333;
+}
+
+.file-preview-image {
+    height: 160px;
+    vertical-align: text-center;
+}
+
+.file-preview-text {
+    width: 160px;
+    color: #428bca;
+    font-size: 11px;
+    text-align: center;
+}
+
+.file-preview-other {
+    padding-top: 48px;
+    text-align: center;
+}
+
+.file-preview-other i {
+    font-size: 2.4em;
+}
+
+.file-other-error {
+    width: 100%;
+    padding-top: 30px;
+    text-align: right
+}
+
+.file-input-new .file-preview, .file-input-new .close, .file-input-new .glyphicon-file,
+.file-input-new .fileinput-remove-button, .file-input-new .fileinput-upload-button,
+.file-input-ajax-new .fileinput-remove-button, .file-input-ajax-new .fileinput-upload-button {
+    display: none;
+}
+
+.loading {
+    background: transparent url('../img/loading.gif') no-repeat scroll center center content-box !important;
+}
+
+.wrap-indicator {
+    font-weight: bold;
+    color: #245269;
+    cursor: pointer;
+}
+
+.file-actions {
+    text-align: left;
+}
+
+.file-footer-buttons {
+    float: right;
+}
+
+.file-thumbnail-footer .file-caption-name {
+    padding-top: 4px;
+    font-size: 11px;
+    color: #777;
+}
+
+.file-upload-indicator {
+    padding-top: 2px;
+    cursor: default;
+}
+
+.file-upload-indicator:hover {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding-top: 0;
+}
+
+.file-drop-zone {
+    border: 1px dashed #aaa;
+    border-radius: 4px;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+    margin: 12px 15px 12px 12px;
+    padding: 5px;
+}
+
+.file-drop-zone-title {
+    color: #aaa;
+    font-size: 40px;
+    padding: 85px 10px;
+}
+
+.highlighted {
+    border: 2px dashed #999 !important;
+    background-color: #f0f0f0;
+}
+
+.file-uploading {
+    background-image: url('../img/loading-sm.gif');
+    background-position: center bottom 10px;
+    background-repeat: no-repeat;
+    opacity: 0.6;
+}
+
+.file-icon-large {
+    font-size: 1.2em;
+}
+
+/*
+IMAGE UPLOAD CSS ENDS
+ */
+
+ /*
+Booking Page Checkboxes Style
+*/
+.form-group input[type="checkbox"] {
+    display: none;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span {
+    width: 20px;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span:first-child {
+    display: none;
+}
+.form-group input[type="checkbox"] + .btn-group > label span:last-child {
+    display: inline-block;
+}
+
+.form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+    display: inline-block;
+}
+.form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+    display: none;
+}
+/*
+Booking Page Checkboxes style ends
+*/
+
+/* Checkbox Fancy starts*/
+.form-group input[type="checkbox"] {
+    display: none;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span {
+    width: 20px;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span:first-child {
+    display: none;
+}
+.form-group input[type="checkbox"] + .btn-group > label span:last-child {
+    display: inline-block;
+}
+
+.form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+    display: inline-block;
+}
+.form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+    display: none;
+}
+/* Checkbox Fancy ends*/
+
+/* media queries */
+@media only screen and (max-width: 330px)  {
+/* if device width is less than or equal to 330 px*/
+.available-bikes{
+    padding: 0px !important;
+}
+.bike-price{
+  width:60px;
+}
+.mobile-off{
+  display:none;
+}
+.fleet-well,.fleet-collapse-a{
+  width:100%;
+}
+.fleet-regno {
+  /*width: 95px;*/
+}
+.mobile-block{
+  display: block;
+  margin-bottom:5px;
+}
+.available-bikes{
+  width:100%;
+  margin:0px;
+}
+.th-quantity{
+  width:120px;
+}
+
+}

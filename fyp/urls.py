@@ -15,11 +15,26 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.conf.urls import url
 from microbank import views
+from django.conf import settings
+import django
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^admin/', admin.site.urls),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^login/$', auth_views.login, name='login'),
+    url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^home/$', views.home, name='home'),
+    url(r'^signup/$', views.signup, name='signup'),
+    url(r'^accounts/login/$', views.loginredirect, name='loginredirect'),
+    url(r'^applyforloan/$',views.applyforloan,name='applyforloan')
+    # url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
+    # url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
+
+    # url(r'^registration/$',views.register, name = 'registration')
+    # url(r'^static/(?P<path>.*)$', django.views.static.serve, {'document_root': settings.STATIC_ROOT}),
+
 ]

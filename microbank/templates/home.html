@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h4>Welcome, {{ user.username }}!</h4>
+  <h4>Welcome, {{ user.email }}!</h4>
+  <h4>Welcome, {{ user.first_name }}!</h4>
+  <h4>Welcome, {{ user.last_name }}!</h4>
+  {% if loanTaken == 0 %}
+    <a href="/applyforloan" class="btn">Apply for loan</a>
+  {% else %}
+  <a href="#" class="btn">You have applied for the loan !</a>
+  {% endif %}
+{% endblock %}

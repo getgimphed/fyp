@@ -1,0 +1,12 @@
+{% extends 'vbase.html' %}
+{% block content %}
+<div>
+    <p>Taken from wikpedia</p>
+    <img src="data:image/jpeg;base64, {{ image }}" alt="Recivedimage" />
+    <p>
+    <span>Order</span>	{{ order }}
+    <span>Action</span>{{ action }}
+    <span>Reg No</span>{{ reg_No }}
+    </p>
+</div>
+{% endblock %}

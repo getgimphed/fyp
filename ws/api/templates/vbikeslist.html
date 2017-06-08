@@ -1,0 +1,45 @@
+{% extends 'vbase.html' %}
+{% block content %}
+	{% if user and not user.is_anonymous %}
+	
+    <div class="container">
+    {% if vendors_bikes %}
+
+        {% for bike_model in vendors_bikes %}
+        <table class="table">
+            <thead>
+             <tr style='color:#4CAF50'>
+                <th>Quantity</th>
+                <th>Rate ( per hr.)</th>
+                <th>Deposit</th>
+                <th>Location</th>
+            </tr>
+            </thead>
+            <tbody>
+            <h5 class="display-4"><u style="color:#33691E"><span style="color:#558B2F;">{{ bike_model.model }}<span></u></h5>
+            
+            {% for bike in bike_model.bikes %}
+                <tr>
+                  <td>{{ bike.bikes_quantity }}</td> 
+                  <td>{{ bike.bikes_rent }} &nbsp;/hr</td>
+                  <td>{{ bike.bikes_deposit }}</td>
+                  <td>{{ bike.location }}</td>
+                </tr>
+                {% endfor %}
+        
+    
+        </tbody>
+        </table>
+        <hr />
+        {% endfor %}
+        
+        {% else %}
+        
+    <h5 class='text-center marginbtm3p'>No bikes in Your Fleet. Add bikes to start earning Noww. </h5>
+        {% endif %}
+     
+       <div class="row" style="padding:20px;"></div>
+    </div>
+    {% else %}
+    {% endif %}
+{% endblock %} 
