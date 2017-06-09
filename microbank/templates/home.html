@@ -1,13 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h4>Welcome, {{ user.username }}!</h4>
+  <div class="col-md-12">
+
+  <h4>Welcome, {{ user.first_name }} {{user.last_name}} !</h4>
   <h4>Welcome, {{ user.email }}!</h4>
-  <h4>Welcome, {{ user.first_name }}!</h4>
-  <h4>Welcome, {{ user.last_name }}!</h4>
-  {% if loanTaken == 0 %}
-    <a href="/applyforloan" class="btn">Apply for loan</a>
+  {% if loanApplied == 0 %}
+    <a href="/applyforloan" class="btn indigo">Apply for loan</a>
   {% else %}
   <a href="#" class="btn">You have applied for the loan !</a>
   {% endif %}
+  {% if loanTaken == 1 %}
+    <a href="#" class="btn">Loan Granted for {{loanAmount}} with the Interest rate @ {{loanInterest}} %</a>
+  {% else %}
+  <a href="#" class="btn">Loan Not Granted</a>
+  {% endif %}
+  <br>
+  <br>your deposit amount in bank is {{deposit}}
+  <br><a href="/payemi" class="btn">Pay EMI : {{emi}}</a>
+  <br>Loan payed till now : {{loanPayed}}
+  <br>Total Loan Duration : {{duration}} months
+</div>
 {% endblock %}

@@ -30,7 +30,8 @@ urlpatterns = [
     url(r'^home/$', views.home, name='home'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^accounts/login/$', views.loginredirect, name='loginredirect'),
-    url(r'^applyforloan/$',views.applyforloan,name='applyforloan')
+    url(r'^applyforloan/$',views.applyforloan,name='applyforloan'),
+    url(r'^payemi$',views.payemi,name='payemi'),
     # url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     # url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
 

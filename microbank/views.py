@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from microbank.models import Client
+from microbank.models import Client,Loan,ClientGroup
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -46,15 +46,58 @@ def home(request):
     # args[data] = data;
     client =  Client.objects.filter(user_id=request.user.id)
     args = {}
+    args["loanApplied"] = 0
     args["loanTaken"] = 0
+    args["loanAmount"] = 0
+    args["loanInterest"] = 0
+    args["deposit"]     = 0
+    args["emi"]         = 0
+    args["loanPayed"]   = 0
+    args["duration"]    = 1
+
+    # print(client)
     if client is not None:
-        args["loanTaken"] = 1 #client[0].loanTaken
+        if len(client) > 0:
+            args["loanApplied"] = 1
+            args["deposit"]     = client[0].deposit
+            if client[0].groupId_id is not None:
+                group = ClientGroup.objects.filter(g_id=client[0].groupId_id)
+            groupId = 0;
+            if 'group' in locals():
+                if len(group) > 0:
+                    groupId = group[0].id
+                else:
+                    groupId = 0;
+            if groupId != 0:
+                loan = Loan.objects.filter(groupId_id=groupId)
+            else:
+                loan = Loan.objects.filter(clientId_id=client[0].id)
+            if loan is not None:
+                if len(loan) > 0:
+                    args["loanTaken"] = 1
+                    args["loanAmount"] = loan[0].amount
+                    args["loanInterest"] = loan[0].interestRate
+                    args["loanPayed"] = loan[0].loanPayed
+                    args["duration"] = loan[0].duration
+
     else:
-        args["loanTaken"] = 0
-    print(args["loanTaken"])
+        args["loanApplied"] = 0
+
+    args["emi"] = args["loanAmount"]*args["loanInterest"]
+    args["emi"] /=100
+    args["emi"] += args["loanAmount"]
+    args["emi"] /= args["duration"]
+
     return render(request,'home.html',{
-        "loanTaken" : args["loanTaken"],
-    })
+        "loanApplied" : args["loanApplied"],
+        "loanTaken"   : args["loanTaken"],
+        "loanAmount"  : args["loanAmount"],
+        "loanInterest": args["loanInterest"],
+        "deposit"     : args["deposit"],
+        "emi"         : args["emi"],
+        "loanPayed"   : args["loanPayed"],
+        "duration"    : args["duration"],
+        })
 
 @login_required
 def applyforloan(request):
@@ -76,13 +119,46 @@ def applyforloan(request):
             address = request.POST.get('address','')
             mobile = request.POST.get('mobile','')
             singleOrGroup = request.POST.get('singleOrGroup','')
-            client = Client.objects.create(user_id=int(id),address=address,mobile=mobile,loanTaken=0,singleOrGroup=int(singleOrGroup))
+            client = Client.objects.create(user_id=int(id),address=address,mobile=mobile,singleOrGroup=int(singleOrGroup))
             client.save()
             return redirect('home')
 
-
-
-
+@login_required
+def payemi(request):
+    if request.method == 'GET':
+        args={}
+        id = request.user.id
+        client = Client.objects.filter(user_id=id)
+        if client is not None:
+            if len(client) > 0:
+                if client[0].groupId_id is not None:
+                    group = ClientGroup.objects.filter(g_id=client[0].groupId_id)
+                groupId = 0;
+                if 'group' in locals():
+                    if len(group) > 0:
+                        groupId = group[0].id
+                    else:
+                        groupId = 0;
+                if groupId != 0:
+                    loan = Loan.objects.filter(groupId_id=groupId)
+                else:
+                    loan = Loan.objects.filter(clientId_id=client[0].id)
+                if loan is not None:
+                    if len(loan) > 0:
+                        args["loanAmount"] = loan[0].amount
+                        args["loanPayed"] = loan[0].loanPayed
+                        args["duration"] = loan[0].duration
+                        args["loanInterest"] = loan[0].interestRate
+                        args["emi"] = args["loanAmount"]*args["loanInterest"]
+                        args["emi"] /=100
+                        args["emi"] += args["loanAmount"]
+                        args["emi"] /= args["duration"]
+                        loan.update(loanPayed=args["loanPayed"]+args["emi"])
+            return redirect('home')
+        else:
+            return redirect('home')
+    else:
+        return redirect('home')
 
 
 
