@@ -1,24 +1,130 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="col-md-12">
+  {% if msg != '' %}
+    <script type="text/javascript">
+      toastr.success('{{msg}}');
+    </script>
 
-  <h4>Welcome, {{ user.first_name }} {{user.last_name}} !</h4>
-  <h4>Welcome, {{ user.email }}!</h4>
-  {% if loanApplied == 0 %}
-    <a href="/applyforloan" class="btn indigo">Apply for loan</a>
-  {% else %}
-  <a href="#" class="btn">You have applied for the loan !</a>
   {% endif %}
-  {% if loanTaken == 1 %}
-    <a href="#" class="btn">Loan Granted for {{loanAmount}} with the Interest rate @ {{loanInterest}} %</a>
-  {% else %}
-  <a href="#" class="btn">Loan Not Granted</a>
-  {% endif %}
-  <br>
-  <br>your deposit amount in bank is {{deposit}}
-  <br><a href="/payemi" class="btn">Pay EMI : {{emi}}</a>
-  <br>Loan payed till now : {{loanPayed}}
-  <br>Total Loan Duration : {{duration}} months
-</div>
+  <div class="col-md-12">
+  <h5>Welcome, {{ user.first_name }} {{user.last_name}} !</h5>
+
+  <!-- <ul class="nav nav-pills">
+    <li class="active"><a href="#">Home</a></li>
+    <li><a href="#"></a></li>
+    <li><a href="#">Loan</a></li>
+    <li><a href="#"></a></li>
+  </ul> -->
+  <br><br>
+  <section id="about" class="section tabbable" style="height: 500px; ">
+      <style>
+        tr td:nth-child(2) {
+          font-weight: bold !important;
+        }
+        tr{
+          font-size: 1.2em;
+        }
+      </style>
+      <ul class="nav nav-tabs" id="an">
+          <li class="active"><a data-toggle="pill" href="#personal-details">Personal Details</a></li>
+          <li class=""><a data-toggle="pill" href="#loans">Loans</a></li>
+          <li class=""><a data-toggle="pill" href="#deposits">Deposits</a></li>
+      </ul><!--"/.nav-pills"-->
+      <div class="contentArea tab-content">
+          <div class="contents tab-pane active" id="personal-details" style="width: 1019px; padding-left: 0px; ">
+            <br>
+            <table class="table table-hover">
+              <tr class="info">
+                <th>UserName</th>
+                <th>{{user.username}}</th>
+              </tr>
+              <tr class="warning">
+                  <td>First Name</td>
+                <td>{{ user.first_name }}</td>
+              </tr>
+              <tr class="warning">
+                <td>Last Name</td>
+                <td>{{ user.last_name }}</td>
+              </tr>
+              <tr class="warning">
+                <td>Email</td>
+                <td>{{ user.email }}</td>
+              </tr>
+              <tr class="warning">
+                <td>Address</td>
+                <td>{{ address }}</td>
+              </tr>
+              <tr class="warning">
+                <td>Mobile</td>
+                <td>{{ mobile }}</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="contents tab-pane " id="loans" style="width: 1019px; padding-left: 0px; ">
+            <br>
+            <table class="table table-hover">
+              <tr class="info">
+                <th>Loan Applied ?</th>
+                <th>
+                {% if loanApplied == 0 %}
+                  <a href="/applyforloan" class="btn indigo">Apply for loan</a>
+                {% else %}
+                  <button onclick="toastr.success('Already Applied ! <br>Go bank to Grant loan');" class="btn">You have applied for the loan !</button>
+                {% endif %}
+                </th>
+              </tr>
+              <tr class="warning">
+                <td>Loan Granted</td>
+                {% if loanTaken == 1 %}
+                  <td>Your Loan is Granted !</td>
+                {% else %}
+                  <td>Your Loan is NOT Granted !</td>
+                {% endif%}
+              </tr>
+              <tr class="warning">
+                  <td>Interest Rate</td>
+                <td>{{loanInterest}} %</td>
+              </tr>
+              <tr class="warning">
+                <td>Loan Amount</td>
+                <td>{{loanAmount}}</td>
+              </tr>
+              <tr class="warning">
+                <td>EMI</td>
+                <td>{{ emi }}</td>
+              </tr>
+              <tr class="warning">
+                <td>Pay EMI</td>
+                <td>
+                  {% if emi != 0 %}
+                  <a href="/payemi" class="btn">Pay EMI : {{emi}}</a>
+                  {% else %}
+                  <a href="/payemi" class="btn disabled">Pay EMI : {{emi}}</a>
+                  {%endif%}
+                </td>
+              </tr>
+              <tr class="warning">
+                <td>Loan Payed Till now</td>
+                <td>{{ loanPayed }}</td>
+              </tr>
+              <tr class="warning">
+                <td>Total Loan Duration</td>
+                <td>{{ duration }} Months</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="contents tab-pane" id="deposits" style="width: 1019px; padding-left: 0px; ">
+            <br>
+            <table class="table table-hover">
+              <tr class="info">
+                <th>Deposits</th>
+                <th>{{deposit}}</th>
+              </tr>
+            </table>
+          </div>
+      </div><!-- /.contentArea -->
+  </section>
 {% endblock %}

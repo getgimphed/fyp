@@ -53,7 +53,7 @@ urlpatterns = [
     url(r'^vendor/register/$',views.VendorsList.as_view(),name='vendor-register'),
     url(r'^user/register/$',views.UsersList.as_view(),name='user-register'),
     url(r'^avaliablity/$',views.checkavaliablity,name='avaliablity'),
-    url(r'^bookings/$',views.BookingsList.as_view(),name='bookings'),    
+    url(r'^bookings/$',views.BookingsList.as_view(),name='bookings'),
     url(r'^login$',(views.Login.as_view()),name='login_view'),
     url(r'^logout$', views.Logout.as_view(),name='logout_view'),
     # url(r'^vendor/(?P<pk>[0-9]+)/forgotpassword/$',views.VendorsDetail.as_view(),name='forgot-password'),
@@ -68,4 +68,3 @@ urlpatterns = [
     ]
 #Needed to parse data request to any format
 urlpatterns = format_suffix_patterns(urlpatterns)
-

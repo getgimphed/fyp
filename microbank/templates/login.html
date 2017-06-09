@@ -1,26 +1,44 @@
-{% extends 'base.html' %}
-
+{% extends 'base2.html' %}
 {% block content %}
-  <h2>Log in to My Site</h2>
-  {% if form.errors %}
+<section id="services">
+  <div class="container">
+  <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Login</h2>
+                    <h3 class="section-subheading text-muted">WELCOME!!.</h3>
+                </div>
+            </div>
+
+  {% if error_message %}
     <p style="color: red">Your username and password didn't match. Please try again.</p>
   {% endif %}
-  <form method="post">
-    {% csrf_token %}
-    <input type="hidden" name="next" value="{{ next }}" />
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}<br>
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-        {% if field.help_text %}
-          <p><small style="color: grey">{{ field.help_text }}</small></p>
-        {% endif %}
-      </p>
-    {% endfor %}
-    <button type="submit">Log in</button>
-    <a href="{% url 'signup' %}">New to My Site? Sign up</a>
+  <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data" >
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ next }}" />
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="id_username">
+                                Username:
+                            </label>
+                            <div class="col-sm-10">
+                                <input id="id_username" maxlength="30" name="username" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="id_password">
+                                Password:
+                            </label>
+                            <div class="col-sm-10">
+                                <input id="id_password" maxlength="30" name="password" type="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+
+  <a href="{% url 'signup' %}">New to My Ted Bank? Sign up</a>
   </form>
+    </div>
+</section>
 {% endblock %}
